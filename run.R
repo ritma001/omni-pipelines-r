@@ -68,6 +68,10 @@ parser$add_argument(
   default = "manual", required = FALSE
 )
 
+parser$add_argument(
+  "--seed", type = "integer",
+  help = "set seed"
+)
 args <- parser$parse_args()
 
 cargs <- commandArgs(trailingOnly = FALSE)
@@ -102,6 +106,7 @@ clustering_info <- list(
 
 # source and run appropriate method
 if (args$method_name == "seurat") {
+  set.seed(args$seed)
   seurat_r_path <- file.path(run_dir, "seurat.R")
   source(seurat_r_path)
   output_data <- run_seurat(
